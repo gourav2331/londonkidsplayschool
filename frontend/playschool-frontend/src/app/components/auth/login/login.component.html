@@ -1,0 +1,93 @@
+<!-- Login Page Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+          <div class="bg-light rounded p-4 shadow-sm">
+            <h2 class="mb-3 text-center">Staff / Parent Login</h2>
+  
+            <ul class="nav nav-pills mb-4 justify-content-center">
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  [class.active]="activeRole === 'parent'"
+                  (click)="setRole('parent')"
+                  type="button"
+                >
+                  Parent Login
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  [class.active]="activeRole === 'admin'"
+                  (click)="setRole('admin')"
+                  type="button"
+                >
+                  Admin Login
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  [class.active]="activeRole === 'teacher'"
+                  (click)="setRole('teacher')"
+                  type="button"
+                >
+                  Teacher Login
+                </button>
+              </li>
+            </ul>
+  
+            <div *ngIf="activeRole === 'parent'" class="alert alert-info py-2">
+              Parent login will be enabled in the next phase.
+              For now, please use the enquiry form or contact the school directly.
+            </div>
+  
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+              <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="username"
+                  [(ngModel)]="username"
+                  required
+                />
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  [(ngModel)]="password"
+                  required
+                />
+              </div>
+  
+              <div *ngIf="error" class="alert alert-danger py-2">
+                {{ error }}
+              </div>
+  
+              <button
+                type="submit"
+                class="btn btn-primary w-100 py-2"
+                [disabled]="loading || activeRole === 'parent'"
+              >
+                <span *ngIf="!loading">Login as {{ activeRole | titlecase }}</span>
+                <span *ngIf="loading">Logging in...</span>
+              </button>
+            </form>
+  
+            <p class="small text-muted mt-3 mb-0 text-center">
+              Only Admin and Teacher logins are active currently.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Login Page End -->
+  

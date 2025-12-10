@@ -1,0 +1,136 @@
+<div class="container-xxl py-5">
+    <div class="container">
+      <h2 class="mb-4">Admin Dashboard</h2>
+  
+      <!-- Summary cards -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+              <h6 class="card-title text-muted">Total Students</h6>
+              <h2 class="mb-0 text-primary">{{ counts.totalStudents }}</h2>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+              <h6 class="card-title text-muted">Total Enquiries</h6>
+              <h2 class="mb-0 text-success">{{ counts.totalEnquiries }}</h2>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+              <h6 class="card-title text-muted">Programs</h6>
+              <h2 class="mb-0 text-warning">4</h2>
+              <small class="text-muted">
+                Playgroup, Nursery, Junior KG, Senior KG
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Students list with search -->
+      <div class="bg-white rounded p-4 shadow-sm">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="mb-0">All Students</h5>
+          <input
+  #searchBox
+  type="text"
+  class="form-control w-auto"
+  style="min-width: 250px;"
+  placeholder="Search by name, parent, class, phone..."
+  (input)="onSearchChange(searchBox.value)"
+/>
+
+        </div>
+  
+        <div *ngIf="loading">Loading...</div>
+        <div *ngIf="!loading && filteredStudents.length === 0" class="text-muted">
+          No students found.
+        </div>
+  
+        <div class="table-responsive" *ngIf="!loading && filteredStudents.length">
+          <table class="table table-hover align-middle">
+            <thead>
+              <tr>
+                <th>Child</th>
+                <th>Class</th>
+                <th>Parent</th>
+                <th>Phone</th>
+                <th>Enrolled By</th>
+                <th>Enrolled On</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let s of filteredStudents"
+                (click)="openStudentDetails(s)"
+                style="cursor: pointer;"
+              >
+                <td>{{ s.child_name }}</td>
+                <td>{{ s.class_name }}</td>
+                <td>{{ s.parent_name || '-' }}</td>
+                <td>{{ s.phone }}</td>
+                <td>{{ s.created_by_username || 'Teacher' }}</td>
+                <td>{{ s.created_at | date : 'dd MMM, y' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+        <div *ngIf="error" class="alert alert-danger mt-3 py-2">
+          {{ error }}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Simple popup for student details -->
+  <div
+    class="custom-modal-backdrop"
+    *ngIf="selectedStudent"
+    (click)="closeStudentDetails()"
+  >
+    <div
+      class="custom-modal"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="custom-modal-header">
+        <h5 class="mb-0">
+          {{ selectedStudent?.child_name }} –
+          {{ selectedStudent?.class_name }}
+        </h5>
+        <button type="button" class="btn-close" (click)="closeStudentDetails()"></button>
+      </div>
+      <div class="custom-modal-body">
+        <p><strong>Parent:</strong> {{ selectedStudent?.parent_name || '-' }}</p>
+        <p><strong>Phone:</strong> {{ selectedStudent?.phone }}</p>
+        <p><strong>Age:</strong> {{ selectedStudent?.age || '-' }}</p>
+        <p><strong>Address:</strong> {{ selectedStudent?.address || '-' }}</p>
+        <p>
+          <strong>Enrolled By:</strong>
+          {{ selectedStudent?.created_by_username || 'Teacher' }}
+        </p>
+        <p>
+          <strong>Enrolled On:</strong>
+          {{ selectedStudent?.created_at | date : 'dd MMM, y, h:mm a' }}
+        </p>
+      </div>
+      <div class="custom-modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="closeStudentDetails()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+  

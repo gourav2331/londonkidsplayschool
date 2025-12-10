@@ -1,0 +1,203 @@
+<!-- Appointment Page Start -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <div
+      class="text-center mx-auto mb-5 wow fadeInUp"
+      data-wow-delay="0.1s"
+      style="max-width: 600px;"
+    >
+      <h1 class="mb-3">Book a Campus Visit</h1>
+      <p>
+        Share your details and we’ll schedule a visit, call or counselling
+        session to guide you through the admission process.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Left info block (optional details) -->
+      <div class="col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+        <h4 class="mb-3">Why book an appointment?</h4>
+        <ul class="list-unstyled mb-4">
+          <li class="mb-2">
+            <i class="fa fa-check text-primary me-2"></i>
+            Guided school tour &amp; classroom visit
+          </li>
+          <li class="mb-2">
+            <i class="fa fa-check text-primary me-2"></i>
+            Detailed discussion about curriculum &amp; activities
+          </li>
+          <li class="mb-2">
+            <i class="fa fa-check text-primary me-2"></i>
+            Clear explanation of fees &amp; admission process
+          </li>
+        </ul>
+
+        <h5 class="mb-3">Contact for quick queries</h5>
+        <p class="mb-2">
+          <i class="fa fa-phone-alt text-primary me-3"></i>
+          +91-XXXXXXXXXX
+        </p>
+        <p class="mb-2">
+          <i class="fa fa-envelope text-primary me-3"></i>
+          <a href="mailto:info&#64;londonkidsgopalpur.com">
+            info&#64;londonkidsgopalpur.com
+          </a>
+        </p>
+      </div>
+
+      <!-- Right form block -->
+      <div class="col-lg-7 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+        <div class="bg-light rounded p-4">
+          <h4 class="mb-3">Book Your Appointment</h4>
+
+          <form #appointmentForm="ngForm" (ngSubmit)="onSubmit(appointmentForm)">
+            <div class="row g-3">
+              <!-- Parent Name -->
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control border-0"
+                    id="parentName"
+                    name="parentName"
+                    ngModel
+                    required
+                    placeholder="Parent / Guardian Name"
+                  />
+                  <label for="parentName">Parent / Guardian Name *</label>
+                </div>
+              </div>
+
+              <!-- Phone -->
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input
+                    type="tel"
+                    class="form-control border-0"
+                    id="phone"
+                    name="phone"
+                    ngModel
+                    required
+                    placeholder="Mobile Number"
+                  />
+                  <label for="phone">Mobile Number *</label>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input
+                    type="email"
+                    class="form-control border-0"
+                    id="email"
+                    name="email"
+                    ngModel
+                    placeholder="Email"
+                  />
+                  <label for="email">Email (Optional)</label>
+                </div>
+              </div>
+
+              <!-- Child Name -->
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control border-0"
+                    id="childName"
+                    name="childName"
+                    ngModel
+                    placeholder="Child Name"
+                  />
+                  <label for="childName">Child Name</label>
+                </div>
+              </div>
+
+              <!-- Child Age -->
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input
+                    type="number"
+                    class="form-control border-0"
+                    id="childAge"
+                    name="childAge"
+                    ngModel
+                    placeholder="Child Age"
+                    min="1"
+                    max="10"
+                  />
+                  <label for="childAge">Child Age</label>
+                </div>
+              </div>
+
+              <!-- Class Applying For -->
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <select
+                    class="form-select border-0"
+                    id="classAppliedFor"
+                    name="classAppliedFor"
+                    ngModel
+                  >
+                    <option value="" selected>Choose class</option>
+                    <option value="Playgroup">Playgroup</option>
+                    <option value="Nursery">Nursery</option>
+                    <option value="Junior KG">Junior KG</option>
+                    <option value="Senior KG">Senior KG</option>
+                  </select>
+                  <label for="classAppliedFor">Class Applying For</label>
+                </div>
+              </div>
+
+              <!-- Message -->
+              <div class="col-12">
+                <div class="form-floating">
+                  <textarea
+                    class="form-control border-0"
+                    id="message"
+                    name="message"
+                    ngModel
+                    style="height: 100px"
+                    placeholder="Message"
+                  ></textarea>
+                  <label for="message">Any specific queries?</label>
+                </div>
+              </div>
+
+              <!-- Submit button -->
+              <div class="col-12">
+                <button
+                  class="btn btn-primary w-100 py-3"
+                  type="submit"
+                  [disabled]="appointmentForm.invalid || isSubmitting"
+                >
+                  {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
+                </button>
+              </div>
+
+              <!-- Success / Error messages -->
+              <div class="col-12" *ngIf="submitSuccess">
+                <div class="alert alert-success mt-3">
+                  {{ submitSuccess }}
+                </div>
+              </div>
+
+              <div class="col-12" *ngIf="submitError">
+                <div class="alert alert-danger mt-3">
+                  {{ submitError }}
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <p class="small text-muted mt-3 mb-0">
+            Once you submit, our team will confirm your appointment over call or
+            WhatsApp based on the contact details provided.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Appointment Page End -->
