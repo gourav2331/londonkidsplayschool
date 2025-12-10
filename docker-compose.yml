@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: playschool-db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: playschool_user
+      POSTGRES_PASSWORD: playschool_pass
+    volumes:
+      - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - playschool-net
+
+  backend:
+    build:
+      context: ./backend
+    container_name: playschool-backend
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    networks:
+      - playschool-net
+
+  frontend:
+    build:
+      context: ./frontend/playschool-frontend
+    container_name: playschool-frontend
+    depends_on:
+      - backend
+    ports:
+      - "4500:80"
+    networks:
+      - playschool-net
+
+networks:
+  playschool-net:
+
+volumes:
+  pgdata:

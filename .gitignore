@@ -1,0 +1,22 @@
+# Node backend
+backend/node_modules/
+backend/.env
+backend/npm-debug.log
+
+# Angular frontend
+frontend/playschool-frontend/node_modules/
+frontend/playschool-frontend/dist/
+
+# Docker
+pgdata/
+docker/db/*.sql~
+docker/db/*.backup
+
+# Logs
+*.log
+backend/logs/
+frontend/playschool-frontend/.angular/cache/
+
+# OS/Junk
+.DS_Store
+Thumbs.db
