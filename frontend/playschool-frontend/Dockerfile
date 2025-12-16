@@ -24,26 +24,27 @@ RUN npm run build
 # =========================
 FROM nginx:1.27.2-alpine3.20
 
-# Patch Alpine base to mitigate known CVEs
 RUN apk upgrade --no-cache
 
-# Copy custom Nginx configuration (must exist at: nginx/default.conf in this project)
+# Copy custom Nginx config
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# Copy built Angular app into Nginx html directory
-# If you are using standard Angular build (no SSR):
-#   output is usually: dist/playschool-frontend
-# If you are using SSR with "browser" folder:
-#   output is: dist/playschool-frontend/browser
-#
-# Pick the correct one for YOUR build:
+# IMPORTANT: remove default nginx welcome files
+RUN rm -rf /usr/share/nginx/html/*
 
-# --- If SSR/browser build (likely in your current setup) ---
-COPY --from=build /app/dist/playschool-frontend/browser /usr/share/nginx/html
+# Copy Angular build output
+# Try SSR output first (Angular 17+ SSR produces browser/)
+COPY --from=build /app/dist/playschool-frontend/browser/ /usr/share/nginx/html/
 
-# --- If it fails with "no such file or directory", switch to this instead ---
-# COPY --from=build /app/dist/playschool-frontend /usr/share/nginx/html
+# If your build is NOT SSR and fails, switch to:
+# COPY --from=build /app/dist/playschool-frontend/ /usr/share/nginx/html/
+
+# If Angular produced index.csr.html but not index.html, create index.html for nginx
+RUN if [ -f /usr/share/nginx/html/index.csr.html ] && [ ! -f /usr/share/nginx/html/index.html ]; then \
+      cp /usr/share/nginx/html/index.csr.html /usr/share/nginx/html/index.html ; \
+    fi
+
 
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
+

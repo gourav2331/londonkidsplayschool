@@ -16,3 +16,17 @@ CREATE TABLE IF NOT EXISTS enquiries (
     source             VARCHAR(50)  NOT NULL,
     created_at         TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS students (
+  id SERIAL PRIMARY KEY,
+  child_name VARCHAR(100) NOT NULL,
+  class_name VARCHAR(50) NOT NULL,
+  age INTEGER,
+  parent_name VARCHAR(100),
+  phone VARCHAR(20) NOT NULL,
+  address TEXT,
+  created_by_role VARCHAR(20) NOT NULL,
+  created_by_username VARCHAR(100) NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+

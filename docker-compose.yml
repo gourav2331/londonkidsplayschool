@@ -34,7 +34,10 @@ services:
     depends_on:
       - backend
     ports:
-      - "4500:80"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     networks:
       - playschool-net
 
@@ -43,3 +46,4 @@ networks:
 
 volumes:
   pgdata:
+
