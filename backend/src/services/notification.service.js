@@ -77,7 +77,15 @@ async function sendTelegramNotification(enquiry) {
   });
 }
 
+async function sendEnquiryNotifications(enquiry) {
+  await Promise.allSettled([
+    sendEmailNotification(enquiry),
+    sendTelegramNotification(enquiry),
+  ]);
+}
+
 module.exports = {
   sendEmailNotification,
-  sendTelegramNotification
+  sendTelegramNotification,
+  sendEnquiryNotifications,
 };
