@@ -27,7 +27,7 @@ FROM nginx:1.27.2-alpine3.20
 RUN apk upgrade --no-cache
 
 # Copy custom Nginx config
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY nginx/default.local.conf /etc/nginx/conf.d/default.conf
 
 # IMPORTANT: remove default nginx welcome files
 RUN rm -rf /usr/share/nginx/html/*
