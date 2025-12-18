@@ -43,6 +43,7 @@ describe('Admin Routes', () => {
     });
 
     it('should return enquiries list for admin', async () => {
+      const createdAt = new Date();
       const mockEnquiries = [
         {
           id: 1,
@@ -50,7 +51,7 @@ describe('Admin Routes', () => {
           phone: '1234567890',
           email: 'john@example.com',
           source: 'contact',
-          created_at: new Date(),
+          created_at: createdAt,
         },
       ];
 
@@ -61,7 +62,17 @@ describe('Admin Routes', () => {
         .set('Authorization', `Bearer ${adminToken}`);
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(mockEnquiries);
+      // Dates are serialized to ISO strings in JSON, so only assert key fields
+      expect(response.body).toEqual([
+        expect.objectContaining({
+          id: 1,
+          parent_name: 'John Doe',
+          phone: '1234567890',
+          email: 'john@example.com',
+          source: 'contact',
+          created_at: expect.any(String),
+        }),
+      ]);
       expect(query).toHaveBeenCalled();
     });
 
@@ -79,6 +90,7 @@ describe('Admin Routes', () => {
 
   describe('GET /api/admin/students', () => {
     it('should return students list for admin', async () => {
+      const createdAt = new Date();
       const mockStudents = [
         {
           id: 1,
@@ -87,7 +99,7 @@ describe('Admin Routes', () => {
           age: 4,
           parent_name: 'Parent',
           phone: '1234567890',
-          created_at: new Date(),
+          created_at: createdAt,
         },
       ];
 
@@ -98,7 +110,17 @@ describe('Admin Routes', () => {
         .set('Authorization', `Bearer ${adminToken}`);
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(mockStudents);
+      expect(response.body).toEqual([
+        expect.objectContaining({
+          id: 1,
+          child_name: 'Alice',
+          class_name: 'Nursery',
+          age: 4,
+          parent_name: 'Parent',
+          phone: '1234567890',
+          created_at: expect.any(String),
+        }),
+      ]);
     });
 
     it('should handle database errors', async () => {

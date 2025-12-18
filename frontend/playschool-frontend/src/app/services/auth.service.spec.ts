@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { PLATFORM_ID } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthService, LoginResponse } from './auth.service';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -28,7 +28,7 @@ describe('AuthService', () => {
 
   describe('login', () => {
     it('should login and store token and role', (done) => {
-      const mockResponse = {
+      const mockResponse: LoginResponse = {
         token: 'test-token',
         role: 'admin',
         username: 'admin',

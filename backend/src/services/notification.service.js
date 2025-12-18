@@ -2,18 +2,17 @@
 const nodemailer = require('nodemailer');
 const axios = require('axios');
 
-const {
-  SMTP_HOST,
-  SMTP_PORT,
-  SMTP_USER,
-  SMTP_PASS,
-  NOTIFY_TO_EMAIL,
-  TELEGRAM_BOT_TOKEN,
-  TELEGRAM_CHAT_ID
-} = process.env;
-
 // ---------- Email ----------
 async function sendEmailNotification(enquiry) {
+  // Read fresh values from process.env so tests can override them
+  const {
+    SMTP_HOST,
+    SMTP_PORT,
+    SMTP_USER,
+    SMTP_PASS,
+    NOTIFY_TO_EMAIL,
+  } = process.env;
+
   if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS || !NOTIFY_TO_EMAIL) {
     console.log('Email notification skipped: SMTP/recipient not configured.');
     return;
@@ -53,6 +52,8 @@ async function sendEmailNotification(enquiry) {
 
 // ---------- Telegram ----------
 async function sendTelegramNotification(enquiry) {
+  const { TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID } = process.env;
+
   if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
     console.log('Telegram notification skipped: bot token/chat id not configured.');
     return;

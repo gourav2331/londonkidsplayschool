@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable, tap } from 'rxjs';
 
-interface LoginResponse {
+export interface LoginResponse {
   token: string;
   role: 'admin' | 'teacher';
   username: string;

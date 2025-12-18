@@ -4,7 +4,6 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from '../services/auth.service';
 
 describe('AuthGuard', () => {
-  let guard: AuthGuard;
   let authService: jasmine.SpyObj<AuthService>;
   let router: jasmine.SpyObj<Router>;
 
@@ -14,19 +13,22 @@ describe('AuthGuard', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        AuthGuard,
         { provide: AuthService, useValue: authSpy },
         { provide: Router, useValue: routerSpy },
       ],
     });
 
-    guard = TestBed.inject(AuthGuard);
     authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
     router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
   });
 
+  function runGuard(route: any, state: any) {
+    return TestBed.runInInjectionContext(() => AuthGuard(route, state));
+  }
+
   it('should be created', () => {
-    expect(guard).toBeTruthy();
+    const result = runGuard({} as any, {} as any);
+    expect(result).toBeDefined();
   });
 
   it('should allow access if user is logged in and has required role', () => {
@@ -38,7 +40,7 @@ describe('AuthGuard', () => {
     } as any;
     const state = {} as any;
 
-    const result = guard(route, state);
+    const result = runGuard(route, state);
 
     expect(result).toBe(true);
     expect(authService.isLoggedIn).toHaveBeenCalled();
@@ -54,7 +56,7 @@ describe('AuthGuard', () => {
     } as any;
     const state = { url: '/admin/dashboard' } as any;
 
-    const result = guard(route, state);
+    const result = runGuard(route, state);
 
     expect(result).toBe(false);
     expect(router.navigate).toHaveBeenCalledWith(['/login'], {
@@ -71,7 +73,7 @@ describe('AuthGuard', () => {
     } as any;
     const state = {} as any;
 
-    const result = guard(route, state);
+    const result = runGuard(route, state);
 
     expect(result).toBe(false);
     expect(router.navigate).toHaveBeenCalledWith(['/']);
@@ -85,7 +87,7 @@ describe('AuthGuard', () => {
     } as any;
     const state = {} as any;
 
-    const result = guard(route, state);
+    const result = runGuard(route, state);
 
     expect(result).toBe(true);
     expect(authService.hasRole).not.toHaveBeenCalled();
