@@ -1,65 +1,34 @@
-<nav
-  class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 py-lg-0"
->
+<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 py-lg-0">
   <a routerLink="/" class="navbar-brand d-flex align-items-center">
-    <img
-      src="assets/img/logo.png"
-      alt="London Kids, Gopalpur"
-      class="me-3"
-      style="height: 55px; width: auto;"
-    />
+    <img src="assets/img/logo.png" alt="London Kids, Gopalpur" class="me-3" style="height: 55px; width: auto;" />
     <h1 class="m-0 text-primary">
       London Kids, Gopalpur
     </h1>
   </a>
 
-  <button
-    type="button"
-    class="navbar-toggler"
-    data-bs-toggle="collapse"
-    data-bs-target="#navbarCollapse"
-  >
+  <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <div class="navbar-nav mx-auto">
-      <a
-        routerLink="/"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        class="nav-item nav-link"
-      >
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-item nav-link">
         Home
       </a>
 
-      <a
-        routerLink="/about"
-        routerLinkActive="active"
-        class="nav-item nav-link"
-      >
+      <a routerLink="/about" routerLinkActive="active" class="nav-item nav-link">
         About Us
       </a>
 
-      <a
-        routerLink="/classes"
-        routerLinkActive="active"
-        class="nav-item nav-link"
-      >
+      <a routerLink="/classes" routerLinkActive="active" class="nav-item nav-link">
         Classes
       </a>
 
       <div class="nav-item dropdown">
-        <a
-          href="#"
-          class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown"
-        >
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
           Pages
         </a>
-        <div
-          class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0"
-        >
+        <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
           <a routerLink="/facilities" class="dropdown-item">
             Facilities
           </a>
@@ -69,29 +38,19 @@
         </div>
       </div>
 
-      <a
-        routerLink="/contact"
-        routerLinkActive="active"
-        class="nav-item nav-link"
-      >
+      <a routerLink="/contact" routerLinkActive="active" class="nav-item nav-link">
         Contact Us
       </a>
     </div>
 
     <div class="d-flex align-items-center gap-2">
-      <!-- Login button: same colour as Join Us + icon -->
-      <a
-        routerLink="/login"
-        class="btn btn-primary rounded-pill px-3 d-none d-lg-block"
-      >
-        Login
-        <i class="fa fa-sign-in-alt ms-2"></i>
-      </a>
+      <!-- ONE button: becomes Logout after login -->
+      <button type="button" class="btn btn-primary rounded-pill px-3 d-none d-lg-block" (click)="onAuthClick()">
+        {{ isLoggedIn() ? 'Logout' : 'Login' }}
+        <i class="ms-2" [ngClass]="isLoggedIn() ? 'fa fa-sign-out-alt' : 'fa fa-sign-in-alt'"></i>
+      </button>
 
-      <a
-        routerLink="/appointment"
-        class="btn btn-primary rounded-pill px-3 d-none d-lg-block"
-      >
+      <a routerLink="/appointment" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">
         Join Us
         <i class="fa fa-arrow-right ms-3"></i>
       </a>

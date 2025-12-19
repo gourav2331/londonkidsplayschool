@@ -4,11 +4,7 @@ const router = express.Router();
 
 const { query } = require('../helpers/db.helper');
 
-// NOTE:
-// Auth is already applied in server.js like:
-// app.use('/api/admin', authRequired, requireRole(['admin']), adminRoutes);
-
-// GET /api/admin/enquiries
+// GET /api/admin/enquiries (admin+teacher)
 router.get('/enquiries', async (req, res) => {
   try {
     const sql = `
@@ -26,7 +22,7 @@ router.get('/enquiries', async (req, res) => {
       FROM enquiries
       ORDER BY created_at DESC
     `;
-    const result = await query(sql, []);
+    const result = await query(sql);
     return res.json(result.rows || []);
   } catch (err) {
     console.error('[admin.routes] Error fetching enquiries:', err.message);
@@ -34,7 +30,7 @@ router.get('/enquiries', async (req, res) => {
   }
 });
 
-// GET /api/admin/students  ✅ (this fixes your 404)
+// GET /api/admin/students (admin only, but auth/role is already enforced in server.js)
 router.get('/students', async (req, res) => {
   try {
     const sql = `
@@ -52,7 +48,7 @@ router.get('/students', async (req, res) => {
       FROM students
       ORDER BY created_at DESC
     `;
-    const result = await query(sql, []);
+    const result = await query(sql);
     return res.json(result.rows || []);
   } catch (err) {
     console.error('[admin.routes] Error fetching students:', err.message);
@@ -61,4 +57,3 @@ router.get('/students', async (req, res) => {
 });
 
 module.exports = router;
-

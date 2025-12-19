@@ -52,11 +52,18 @@ router.post('/', async (req, res) => {
     const result = await query(insertSql, params);
     const saved = result.rows[0];
 
-    // Fire-and-forget notifications (email/telegram)
+    // Send notifications (fire-and-forget, but log results)
     try {
-      await sendEnquiryNotifications(saved);
+      const notifyResults = await sendEnquiryNotifications(saved);
+      if (!notifyResults.email.success || !notifyResults.telegram.success) {
+        console.warn('[enquiry.routes] Some notifications failed:', {
+          email: notifyResults.email.success ? 'OK' : notifyResults.email.error,
+          telegram: notifyResults.telegram.success ? 'OK' : notifyResults.telegram.error
+        });
+      }
     } catch (notifyErr) {
-      console.warn('[enquiry.routes] Notification error:', notifyErr.message);
+      console.error('[enquiry.routes] Notification error:', notifyErr.message);
+      console.error('[enquiry.routes] Notification stack:', notifyErr.stack);
     }
 
     return res.status(201).json(saved);

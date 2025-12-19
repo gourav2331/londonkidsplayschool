@@ -17,23 +17,25 @@ router.get('/students', async (req, res) => {
 
     console.log('[teacher.routes] GET /students for user:', user);
 
-    let sql =
-      `SELECT id,
-              child_name,
-              class_name,
-              age,
-              parent_name,
-              phone,
-              address,
-              created_by_role,
-              created_by_username,
-              created_at
-         FROM students`;
+    let sql = `
+      SELECT
+        id,
+        child_name,
+        class_name,
+        age,
+        parent_name,
+        phone,
+        address,
+        created_by_role,
+        created_by_username,
+        created_at
+      FROM students
+    `;
     const params = [];
 
     if (user.role === 'teacher') {
       sql += ' WHERE created_by_role = $1 AND created_by_username = $2';
-      params.push('teacher', user.sub); // JWT: { sub: 'teacher', role: 'teacher', ... }
+      params.push('teacher', user.sub);
     }
 
     sql += ' ORDER BY created_at DESC';
@@ -44,7 +46,7 @@ router.get('/students', async (req, res) => {
     console.error('[teacher.routes] Error fetching students:', err);
     return res.status(500).json({
       error: 'Failed to fetch students',
-      details: err.message, // 👈 temporary: expose PG error so we see what’s wrong
+      details: err.message,
     });
   }
 });
@@ -73,6 +75,17 @@ router.post('/students', async (req, res) => {
       });
     }
 
+    // Option A: allow decimal age (NUMERIC(4,1) in DB)
+    // Normalize: accept "2.3", 2.3, "2", 2, "" -> null
+    const ageNum =
+      age === undefined || age === null || age === ''
+        ? null
+        : Number(age);
+
+    if (ageNum !== null && Number.isNaN(ageNum)) {
+      return res.status(400).json({ error: 'age must be a number' });
+    }
+
     console.log('[teacher.routes] POST /students by user:', user);
 
     const sql = `
@@ -93,7 +106,7 @@ router.post('/students', async (req, res) => {
     const params = [
       child_name,
       class_name,
-      age ?? null,
+      ageNum,
       parent_name ?? null,
       phone,
       address ?? null,
@@ -107,7 +120,7 @@ router.post('/students', async (req, res) => {
     console.error('[teacher.routes] Error creating student:', err);
     return res.status(500).json({
       error: 'Failed to create student',
-      details: err.message, // 👈 again, expose actual DB error
+      details: err.message,
     });
   }
 });

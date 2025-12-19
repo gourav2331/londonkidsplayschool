@@ -28,9 +28,8 @@ app.use(express.json());
 app.use(morgan('combined'));
 
 // Health
-app.get('/api/health', (req, res) => {
-  res.json({ service: 'playschool-backend', status: 'ok' });
-});
+const healthRoutes = require('./routes/health.routes');
+app.use('/api/health', healthRoutes);
 
 // Public enquiries (contact / appointment forms)
 app.use('/api/enquiries', enquiryRoutes);

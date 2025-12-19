@@ -1,37 +1,28 @@
-// src/app/app.component.ts
-import {
-  Component,
-  AfterViewInit,
-  Inject,
-  PLATFORM_ID,
-} from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+// frontend/playschool-frontend/src/app/app.component.ts
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
+import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './components/core/navbar/navbar.component';
 import { FooterComponent } from './components/core/footer/footer.component';
+import { UserHeaderAftrLoginComponent } from './components/core/user-header-aftr-login/user-header-aftr-login.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent],
+  imports: [
+    CommonModule, // ✅ REQUIRED for *ngIf
+    RouterOutlet,
+    NavbarComponent,
+    UserHeaderAftrLoginComponent,
+    FooterComponent,
+  ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements AfterViewInit {
-  title = 'playschool-frontend';
+export class AppComponent {
+  auth = inject(AuthService);
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
-
-  ngAfterViewInit(): void {
-    // Only touch DOM in the browser, never on the server
-    if (isPlatformBrowser(this.platformId)) {
-      setTimeout(() => {
-        const spinner = document.getElementById('spinner');
-        if (spinner) {
-          spinner.classList.remove('show');
-        }
-      }, 300);
-    }
-  }
+  // Branding title (also used by tests sometimes)
+  title = 'Tiny Roots Academy';
 }

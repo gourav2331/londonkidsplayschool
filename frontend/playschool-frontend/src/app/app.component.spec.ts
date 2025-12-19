@@ -1,12 +1,25 @@
+// frontend/playschool-frontend/src/app/app.component.spec.ts
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { AuthService } from './services/auth.service';
 
 describe('AppComponent', () => {
+  const authMock = {
+    isLoggedIn: () => false,
+    getRole: () => null,
+    getToken: () => null,
+    logout: () => { },
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, RouterTestingModule],
+      imports: [AppComponent],
+      providers: [
+        { provide: AuthService, useValue: authMock },
+        provideRouter([]), // ✅ provides ActivatedRoute + Router deps
+      ],
     }).compileComponents();
   });
 
@@ -16,17 +29,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'playschool-frontend' title`, () => {
+  it(`should have the 'Tiny Roots Academy' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('playschool-frontend');
+    expect(app.title).toEqual('Tiny Roots Academy');
   });
 
-  it('should render title', () => {
+  it('should render navbar when logged out', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    // The current layout shows school name in the navbar/footer, so just assert the app shell exists.
-    expect(compiled.querySelector('.app-shell')).toBeTruthy();
+    const el: HTMLElement = fixture.nativeElement;
+    expect(el.querySelector('app-navbar')).toBeTruthy();
   });
 });

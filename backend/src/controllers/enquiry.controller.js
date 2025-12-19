@@ -48,10 +48,18 @@ async function createEnquiry(req, res) {
     const result = await query(sql, params);
     const saved = result.rows[0];
 
+    // Send notifications (fire-and-forget, but log results)
     try {
-      await sendEnquiryNotifications(saved);
+      const notifyResults = await sendEnquiryNotifications(saved);
+      if (!notifyResults.email.success || !notifyResults.telegram.success) {
+        console.warn('[enquiry.controller] Some notifications failed:', {
+          email: notifyResults.email.success ? 'OK' : notifyResults.email.error,
+          telegram: notifyResults.telegram.success ? 'OK' : notifyResults.telegram.error
+        });
+      }
     } catch (notifyErr) {
-      console.warn('[enquiry.controller] Notification error:', notifyErr.message);
+      console.error('[enquiry.controller] Notification error:', notifyErr.message);
+      console.error('[enquiry.controller] Notification stack:', notifyErr.stack);
     }
 
     return res.status(201).json(saved);

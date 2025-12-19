@@ -1,0 +1,31 @@
+<header class="lk-topbar">
+    <div class="lk-left">
+        <span class="badge-role">{{ role() }}</span>
+    </div>
+
+    <div class="lk-right">
+        <button type="button" class="profile-btn" (click)="toggleMenu()">
+            <span class="profile-dot"></span>
+            <span class="profile-text">Profile</span>
+            <span class="chev">▾</span>
+        </button>
+
+        <div class="menu" *ngIf="isOpen" (mouseleave)="closeMenu()">
+            <div class="menu-item">
+                <div class="label">Name</div>
+                <div class="value">{{ profile.name }}</div>
+            </div>
+
+            <div class="menu-item">
+                <div class="label">Mobile</div>
+                <div class="value">{{ profile.mobile }}</div>
+            </div>
+
+            <div class="divider"></div>
+
+            <button type="button" class="logout-btn" (click)="onLogout()">
+                Logout
+            </button>
+        </div>
+    </div>
+</header>

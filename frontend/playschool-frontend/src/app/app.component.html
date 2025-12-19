@@ -1,23 +1,20 @@
 <!-- src/app/app.component.html -->
 <div class="container-xxl bg-white p-0 app-shell">
   <!-- Spinner Start -->
-  <div
-    id="spinner"
-    class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
-  >
-    <div
-      class="spinner-border text-primary"
-      style="width: 3rem; height: 3rem;"
-      role="status"
-    >
+  <div id="spinner"
+    class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
       <span class="sr-only">Loading...</span>
     </div>
   </div>
   <!-- Spinner End -->
-
-  <app-navbar></app-navbar>
-
   <main class="app-main">
+    <!-- Show PUBLIC navbar only when logged out -->
+    <app-navbar *ngIf="!auth.isLoggedIn()"></app-navbar>
+
+    <!-- Show USER header only when logged in -->
+    <app-user-header-aftr-login *ngIf="auth.isLoggedIn()"></app-user-header-aftr-login>
+
     <router-outlet></router-outlet>
   </main>
 

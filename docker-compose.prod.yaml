@@ -1,0 +1,10 @@
+# docker-compose.prod.yml
+
+services:
+  frontend:
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # mount letsencrypt certs from host into container
+      - /etc/letsencrypt:/etc/letsencrypt:ro

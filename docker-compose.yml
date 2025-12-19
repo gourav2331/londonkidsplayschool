@@ -1,13 +1,12 @@
-version: '3.9'
-
 services:
   db:
     image: postgres:16-alpine
     container_name: playschool-db
     environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: playschool_user
-      POSTGRES_PASSWORD: playschool_pass
+    - ENABLE_SSL=false
+    - POSTGRES_DB=playschool
+    - POSTGRES_USER=playschool_user
+    - POSTGRES_PASSWORD=playschool_pass
     volumes:
       - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - pgdata:/var/lib/postgresql/data
@@ -34,10 +33,7 @@ services:
     depends_on:
       - backend
     ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - "4500:80"        # LOCAL default
     networks:
       - playschool-net
 
@@ -46,4 +42,3 @@ networks:
 
 volumes:
   pgdata:
-

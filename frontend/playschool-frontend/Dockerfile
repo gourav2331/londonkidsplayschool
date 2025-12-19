@@ -32,8 +32,13 @@ RUN chmod +x /docker-entrypoint.sh
 # Clean default content
 RUN rm -rf /usr/share/nginx/html/*
 
-# Angular SSR output (browser/)
+# Angular build output (you are copying browser/)
 COPY --from=build /app/dist/playschool-frontend/browser/ /usr/share/nginx/html/
+
+# ✅ FIX: Angular produced index.csr.html; nginx needs index.html
+RUN if [ ! -f /usr/share/nginx/html/index.html ] && [ -f /usr/share/nginx/html/index.csr.html ]; then \
+      mv /usr/share/nginx/html/index.csr.html /usr/share/nginx/html/index.html; \
+    fi
 
 EXPOSE 80 443
 ENTRYPOINT ["/docker-entrypoint.sh"]
