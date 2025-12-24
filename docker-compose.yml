@@ -4,7 +4,7 @@ services:
     container_name: playschool-db
     environment:
     - ENABLE_SSL=false
-    - POSTGRES_DB=playschool
+    - POSTGRES_DB=plays
     - POSTGRES_USER=playschool_user
     - POSTGRES_PASSWORD=playschool_pass
     volumes:
