@@ -1,13 +1,6 @@
-<!-- src/app/components/pages/contact/contact.component.html -->
-
-<!-- Contact Page Start -->
 <div class="container-xxl py-5">
   <div class="container">
-    <div
-      class="text-center mx-auto mb-5 wow fadeInUp"
-      data-wow-delay="0.1s"
-      style="max-width: 600px;"
-    >
+    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
       <h1 class="mb-3">Contact Us</h1>
       <p>
         Reach out for admissions, queries or a simple conversation about your
@@ -25,12 +18,12 @@
         </p>
         <p class="mb-2">
           <i class="fa fa-phone-alt text-primary me-3"></i>
-          +91-XXXXXXXXXX
+          +91- 9475542792 / 8967781859
         </p>
         <p class="mb-4">
           <i class="fa fa-envelope text-primary me-3"></i>
           <a href="mailto:info&#64;londonkidsgopalpur.com">
-            info&#64;londonkidsgopalpur.com
+            admin&#64;londonkidsgopalpur.com
           </a>
         </p>
 
@@ -40,15 +33,11 @@
 
         <h5 class="mb-3">Follow Us</h5>
         <div class="d-flex pt-1">
-          <a class="btn btn-square btn-primary me-2" href="#"
-            ><i class="fab fa-facebook-f"></i
-          ></a>
-          <a class="btn btn-square btn-primary me-2" href="#"
-            ><i class="fab fa-instagram"></i
-          ></a>
-          <a class="btn btn-square btn-primary me-2" href="#"
-            ><i class="fab fa-whatsapp"></i
-          ></a>
+          <a class="btn btn-square btn-primary me-2" href="https://www.facebook.com/londonkidsgopalpur/"><i
+              class="fab fa-facebook-f"></i></a>
+          <a class="btn btn-square btn-primary me-2" href="https://www.instagram.com/londonkidsgopalpur/"><i
+              class="fab fa-instagram"></i></a>
+          <a class="btn btn-square btn-primary me-2" href="https://wa.me/9475542792"><i class="fab fa-whatsapp"></i></a>
         </div>
       </div>
 
@@ -61,68 +50,39 @@
             <div class="row g-3">
               <div class="col-md-6">
                 <div class="form-floating">
-                  <input
-                    type="text"
-                    class="form-control border-0"
-                    id="name"
-                    name="name"
-                    ngModel
-                    required
-                    placeholder="Your Name"
-                  />
+                  <input type="text" class="form-control border-0" id="name" name="name" ngModel required
+                    placeholder="Your Name" />
                   <label for="name">Your Name *</label>
                 </div>
               </div>
 
               <div class="col-md-6">
                 <div class="form-floating">
-                  <input
-                    type="tel"
-                    class="form-control border-0"
-                    id="phone"
-                    name="phone"
-                    ngModel
-                    required
-                    placeholder="Mobile Number"
-                  />
+                  <input type="tel" class="form-control border-0" id="phone" name="phone" ngModel required
+                    placeholder="Mobile Number" />
                   <label for="phone">Mobile Number *</label>
                 </div>
               </div>
 
               <div class="col-12">
                 <div class="form-floating">
-                  <input
-                    type="email"
-                    class="form-control border-0"
-                    id="email"
-                    name="email"
-                    ngModel
-                    placeholder="Your Email"
-                  />
+                  <input type="email" class="form-control border-0" id="email" name="email" ngModel
+                    placeholder="Your Email" />
                   <label for="email">Your Email (Optional)</label>
                 </div>
               </div>
 
               <div class="col-12">
                 <div class="form-floating">
-                  <textarea
-                    class="form-control border-0"
-                    placeholder="Leave a message here"
-                    id="message"
-                    name="message"
-                    ngModel
-                    style="height: 120px"
-                  ></textarea>
+                  <textarea class="form-control border-0" placeholder="Leave a message here" id="message" name="message"
+                    ngModel style="height: 120px"></textarea>
                   <label for="message">Message</label>
                 </div>
               </div>
 
               <div class="col-12">
-                <button
-                  class="btn btn-primary w-100 py-3"
-                  type="submit"
-                  [disabled]="contactForm.invalid || isSubmitting"
-                >
+                <button class="btn btn-primary w-100 py-3" type="submit"
+                  [disabled]="contactForm.invalid || isSubmitting">
                   {{ isSubmitting ? 'Submitting...' : 'Submit' }}
                 </button>
               </div>

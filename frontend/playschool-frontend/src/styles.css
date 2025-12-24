@@ -1,8 +1,41 @@
-html,
-body {
-    height: 100%;
+/* .gradient-title {
+    background: linear-gradient(to bottom left, #86efac, #fcd34d, #f9a8d4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+    text-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
 }
 
-body {
-    background: #f2d288 !important;
+.regd-text {
+    margin-top: px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.65);
+} */
+
+.gradient-title {
+    display: block !important;
+    background: linear-gradient(to bottom left, #86efac, #fcd34d, #f9a8d4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+    text-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+.regd-text {
+    display: block !important;
+    margin-top: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgb(241, 6, 6);
+    line-height: 1.2;
+    text-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
 }

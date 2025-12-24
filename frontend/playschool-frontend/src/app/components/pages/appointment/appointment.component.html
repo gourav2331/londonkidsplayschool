@@ -1,11 +1,7 @@
 <!-- Appointment Page Start -->
 <div class="container-xxl py-5">
   <div class="container">
-    <div
-      class="text-center mx-auto mb-5 wow fadeInUp"
-      data-wow-delay="0.1s"
-      style="max-width: 600px;"
-    >
+    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
       <h1 class="mb-3">Book a Campus Visit</h1>
       <p>
         Share your details and we’ll schedule a visit, call or counselling
@@ -35,12 +31,12 @@
         <h5 class="mb-3">Contact for quick queries</h5>
         <p class="mb-2">
           <i class="fa fa-phone-alt text-primary me-3"></i>
-          +91-XXXXXXXXXX
+          +91- 9475542792 / 8967781859
         </p>
         <p class="mb-2">
           <i class="fa fa-envelope text-primary me-3"></i>
           <a href="mailto:info&#64;londonkidsgopalpur.com">
-            info&#64;londonkidsgopalpur.com
+            admin&#64;londonkidsgopalpur.com
           </a>
         </p>
       </div>
@@ -55,15 +51,8 @@
               <!-- Parent Name -->
               <div class="col-sm-6">
                 <div class="form-floating">
-                  <input
-                    type="text"
-                    class="form-control border-0"
-                    id="parentName"
-                    name="parentName"
-                    ngModel
-                    required
-                    placeholder="Parent / Guardian Name"
-                  />
+                  <input type="text" class="form-control border-0" id="parentName" name="parentName" ngModel required
+                    placeholder="Parent / Guardian Name" />
                   <label for="parentName">Parent / Guardian Name *</label>
                 </div>
               </div>
@@ -71,15 +60,8 @@
               <!-- Phone -->
               <div class="col-sm-6">
                 <div class="form-floating">
-                  <input
-                    type="tel"
-                    class="form-control border-0"
-                    id="phone"
-                    name="phone"
-                    ngModel
-                    required
-                    placeholder="Mobile Number"
-                  />
+                  <input type="tel" class="form-control border-0" id="phone" name="phone" ngModel required
+                    placeholder="Mobile Number" />
                   <label for="phone">Mobile Number *</label>
                 </div>
               </div>
@@ -87,14 +69,8 @@
               <!-- Email -->
               <div class="col-sm-6">
                 <div class="form-floating">
-                  <input
-                    type="email"
-                    class="form-control border-0"
-                    id="email"
-                    name="email"
-                    ngModel
-                    placeholder="Email"
-                  />
+                  <input type="email" class="form-control border-0" id="email" name="email" ngModel
+                    placeholder="Email" />
                   <label for="email">Email (Optional)</label>
                 </div>
               </div>
@@ -102,14 +78,8 @@
               <!-- Child Name -->
               <div class="col-sm-6">
                 <div class="form-floating">
-                  <input
-                    type="text"
-                    class="form-control border-0"
-                    id="childName"
-                    name="childName"
-                    ngModel
-                    placeholder="Child Name"
-                  />
+                  <input type="text" class="form-control border-0" id="childName" name="childName" ngModel
+                    placeholder="Child Name" />
                   <label for="childName">Child Name</label>
                 </div>
               </div>
@@ -117,16 +87,8 @@
               <!-- Child Age -->
               <div class="col-sm-6">
                 <div class="form-floating">
-                  <input
-                    type="number"
-                    class="form-control border-0"
-                    id="childAge"
-                    name="childAge"
-                    ngModel
-                    placeholder="Child Age"
-                    min="1"
-                    max="10"
-                  />
+                  <input type="number" class="form-control border-0" id="childAge" name="childAge" ngModel
+                    placeholder="Child Age" min="1" max="10" />
                   <label for="childAge">Child Age</label>
                 </div>
               </div>
@@ -134,12 +96,7 @@
               <!-- Class Applying For -->
               <div class="col-sm-6">
                 <div class="form-floating">
-                  <select
-                    class="form-select border-0"
-                    id="classAppliedFor"
-                    name="classAppliedFor"
-                    ngModel
-                  >
+                  <select class="form-select border-0" id="classAppliedFor" name="classAppliedFor" ngModel>
                     <option value="" selected>Choose class</option>
                     <option value="Playgroup">Playgroup</option>
                     <option value="Nursery">Nursery</option>
@@ -153,25 +110,16 @@
               <!-- Message -->
               <div class="col-12">
                 <div class="form-floating">
-                  <textarea
-                    class="form-control border-0"
-                    id="message"
-                    name="message"
-                    ngModel
-                    style="height: 100px"
-                    placeholder="Message"
-                  ></textarea>
+                  <textarea class="form-control border-0" id="message" name="message" ngModel style="height: 100px"
+                    placeholder="Message"></textarea>
                   <label for="message">Any specific queries?</label>
                 </div>
               </div>
 
               <!-- Submit button -->
               <div class="col-12">
-                <button
-                  class="btn btn-primary w-100 py-3"
-                  type="submit"
-                  [disabled]="appointmentForm.invalid || isSubmitting"
-                >
+                <button class="btn btn-primary w-100 py-3" type="submit"
+                  [disabled]="appointmentForm.invalid || isSubmitting">
                   {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
                 </button>
               </div>
