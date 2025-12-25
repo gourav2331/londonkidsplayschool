@@ -3,5 +3,13 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    environment:
+      - ENABLE_SSL=true
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt:ro
+
+  backend:
+    ports: []   # IMPORTANT: do not expose backend publicly on prod
+
+  db:
+    ports: []   # IMPORTANT: do not expose DB publicly on prod
